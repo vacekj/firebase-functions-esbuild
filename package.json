@@ -1,0 +1,31 @@
+{
+	"name": "functions",
+	"scripts": {
+		"lint": "tsc --noEmit && eslint . --ext .ts",
+		"build": "esbuild src/index.ts --bundle --outfile=lib/index.js --platform=node --target=node14 --external:firebase-functions",
+		"watch": "watchexec -w src yarn build",
+		"serve": "yarn build && firebase emulators:exec --ui --only functions 'yarn watch'",
+		"shell": "yarn run build && firebase functions:shell",
+		"start": "yarn run shell",
+		"deploy": "firebase deploy --only functions",
+		"logs": "firebase functions:log"
+	},
+	"engines": {
+		"node": "14"
+	},
+	"main": "lib/index.js",
+	"dependencies": {
+		"firebase-functions": "^3.11.0"
+	},
+	"devDependencies": {
+		"@typescript-eslint/eslint-plugin": "^3.10.1",
+		"@typescript-eslint/parser": "^3.10.1",
+		"esbuild": "^0.8.36",
+		"eslint": "^7.16.0",
+		"eslint-plugin-import": "^2.22.0",
+		"firebase-tools": "^9.2.2",
+		"prettier": "^2.2.1",
+		"typescript": "^4.1.3"
+	},
+	"private": true
+}
